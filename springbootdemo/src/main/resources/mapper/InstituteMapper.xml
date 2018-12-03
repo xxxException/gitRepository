@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pointer.springbootdemo.mybatis.mapper.InstituteMapper" >
+  <resultMap id="BaseResultMap" type="com.pointer.springbootdemo.mybatis.domin.Institute" >
+    <id column="instituteId" property="instituteId" jdbcType="INTEGER" />
+    <result column="instituteName" property="instituteName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    instituteId, instituteName
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pointer.springbootdemo.mybatis.domin.InstituteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from `web_institute`
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.pointer.springbootdemo.mybatis.domin.InstituteKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from `web_institute`
+    where instituteId = #{instituteId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.pointer.springbootdemo.mybatis.domin.InstituteKey" >
+    delete from `web_institute`
+    where instituteId = #{instituteId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pointer.springbootdemo.mybatis.domin.InstituteExample" >
+    delete from `web_institute`
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pointer.springbootdemo.mybatis.domin.Institute" >
+    insert into `web_institute` (instituteId, instituteName)
+    values (#{instituteId,jdbcType=INTEGER}, #{instituteName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pointer.springbootdemo.mybatis.domin.Institute" >
+    insert into `web_institute`
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="instituteId != null" >
+        instituteId,
+      </if>
+      <if test="instituteName != null" >
+        instituteName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="instituteId != null" >
+        #{instituteId,jdbcType=INTEGER},
+      </if>
+      <if test="instituteName != null" >
+        #{instituteName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pointer.springbootdemo.mybatis.domin.InstituteExample" resultType="java.lang.Integer" >
+    select count(*) from `web_institute`
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update `web_institute`
+    <set >
+      <if test="record.instituteId != null" >
+        instituteId = #{record.instituteId,jdbcType=INTEGER},
+      </if>
+      <if test="record.instituteName != null" >
+        instituteName = #{record.instituteName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update `web_institute`
+    set instituteId = #{record.instituteId,jdbcType=INTEGER},
+      instituteName = #{record.instituteName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pointer.springbootdemo.mybatis.domin.Institute" >
+    update `web_institute`
+    <set >
+      <if test="instituteName != null" >
+        instituteName = #{instituteName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where instituteId = #{instituteId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pointer.springbootdemo.mybatis.domin.Institute" >
+    update `web_institute`
+    set instituteName = #{instituteName,jdbcType=VARCHAR}
+    where instituteId = #{instituteId,jdbcType=INTEGER}
+  </update>
+</mapper>

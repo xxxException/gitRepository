@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+	<defaultCache
+			maxElementsInMemory="1000"
+			eternal="false"
+			timeToIdleSeconds="120"
+			timeToLiveSeconds="240"
+			memoryStoreEvictionPolicy="LRU">
+	</defaultCache>
+</ehcache>
+        <!--取下面最小数算作间隔时间-->
+        <!--timeToIdleSeconds缓存创建以后，最后一次访问缓存的日期至失效之时的时间间隔；-->
+        <!--timeToLiveSeconds缓存自创建日期起至失效时的间隔时间x-->
+        <!--memoryStoreEvictionPolicy
+        LRU：（Least Rencently Used）新来的对象替换掉使用时间算最近很少使用的对象。-->
+        <!--LFU：（Least Frequently Used）替换掉按命中率高低算比较低的对象。-->
+        <!--FIFO: （First In First Out）把最早进入二级缓存的对象替换掉。-->

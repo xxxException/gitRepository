@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pointer.springbootdemo.mybatis.mapper.PermissionMapper">
+
+
+    <insert id="save">
+        INSERT INTO permission (name,resource) VALUES (#{name},#{resource});
+    </insert>
+
+    <select id="gerPermissonByUserId" resultType="com.pointer.springbootdemo.mybatis.domin.Permission">
+        SELECT name,resource FROM permission WHERE id IN (
+          SELECT permission_id FROM role_permission WHERE role_id IN (
+            SELECT role_id from user_role WHERE user_id=#{userId}
+          )
+        );
+    </select>
+
+    <select id="listAll" resultType="com.pointer.springbootdemo.mybatis.domin.Permission">
+        SELECT name,resource FROM permission;
+    </select>
+</mapper>
+
+
+

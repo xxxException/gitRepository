@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pointer.springbootdemo.mybatis.mapper.TeacherMapper" >
+  <resultMap id="BaseResultMap" type="com.pointer.springbootdemo.mybatis.domin.Teacher" >
+    <id column="teacherId" property="teacherId" jdbcType="INTEGER" />
+    <result column="teacherName" property="teacherName" jdbcType="VARCHAR" />
+    <result column="teacherCourse" property="teacherCourse" jdbcType="VARCHAR" />
+    <result column="teacherAge" property="teacherAge" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    teacherId, teacherName, teacherCourse, teacherAge
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pointer.springbootdemo.mybatis.domin.TeacherExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from `web_teacher`
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.pointer.springbootdemo.mybatis.domin.TeacherKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from `web_teacher`
+    where teacherId = #{teacherId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.pointer.springbootdemo.mybatis.domin.TeacherKey" >
+    delete from `web_teacher`
+    where teacherId = #{teacherId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pointer.springbootdemo.mybatis.domin.TeacherExample" >
+    delete from `web_teacher`
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pointer.springbootdemo.mybatis.domin.Teacher" >
+    insert into `web_teacher` (teacherId, teacherName, teacherCourse, 
+      teacherAge)
+    values (#{teacherId,jdbcType=INTEGER}, #{teacherName,jdbcType=VARCHAR}, #{teacherCourse,jdbcType=VARCHAR}, 
+      #{teacherAge,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pointer.springbootdemo.mybatis.domin.Teacher" >
+    insert into `web_teacher`
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        teacherId,
+      </if>
+      <if test="teacherName != null" >
+        teacherName,
+      </if>
+      <if test="teacherCourse != null" >
+        teacherCourse,
+      </if>
+      <if test="teacherAge != null" >
+        teacherAge,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null" >
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherCourse != null" >
+        #{teacherCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAge != null" >
+        #{teacherAge,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pointer.springbootdemo.mybatis.domin.TeacherExample" resultType="java.lang.Integer" >
+    select count(*) from `web_teacher`
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update `web_teacher`
+    <set >
+      <if test="record.teacherId != null" >
+        teacherId = #{record.teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherName != null" >
+        teacherName = #{record.teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherCourse != null" >
+        teacherCourse = #{record.teacherCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherAge != null" >
+        teacherAge = #{record.teacherAge,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update `web_teacher`
+    set teacherId = #{record.teacherId,jdbcType=INTEGER},
+      teacherName = #{record.teacherName,jdbcType=VARCHAR},
+      teacherCourse = #{record.teacherCourse,jdbcType=VARCHAR},
+      teacherAge = #{record.teacherAge,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pointer.springbootdemo.mybatis.domin.Teacher" >
+    update `web_teacher`
+    <set >
+      <if test="teacherName != null" >
+        teacherName = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherCourse != null" >
+        teacherCourse = #{teacherCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAge != null" >
+        teacherAge = #{teacherAge,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where teacherId = #{teacherId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pointer.springbootdemo.mybatis.domin.Teacher" >
+    update `web_teacher`
+    set teacherName = #{teacherName,jdbcType=VARCHAR},
+      teacherCourse = #{teacherCourse,jdbcType=VARCHAR},
+      teacherAge = #{teacherAge,jdbcType=VARCHAR}
+    where teacherId = #{teacherId,jdbcType=INTEGER}
+  </update>
+</mapper>

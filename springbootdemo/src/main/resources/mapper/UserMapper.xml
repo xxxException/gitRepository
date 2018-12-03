@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pointer.springbootdemo.mybatis.mapper.UserMapper">
+
+
+    <select id="selectByUsernameAndPassword" resultType="com.pointer.springbootdemo.mybatis.domin.User">
+        SELECT userId,userName,userPassword FROM user WHERE userName=#{userName} AND userPassword=#{password};
+    </select>
+
+    <select id="selectByUsername" resultType="com.pointer.springbootdemo.mybatis.domin.User">
+        SELECT userId,userName,userPassword FROM user WHERE userName=#{userName};
+    </select>
+
+    <select id="list" resultType="com.pointer.springbootdemo.mybatis.domin.User">
+        SELECT  FROM user WHERE userName=#{userName};
+    </select>
+</mapper>
+
+
+
