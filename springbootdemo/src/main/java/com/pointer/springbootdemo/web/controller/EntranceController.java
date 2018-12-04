@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 
 @Controller
 public class EntranceController {
@@ -20,6 +20,8 @@ public class EntranceController {
     public String homepage(Model model) {
         System.out.println("进入homepage");
         RedirectView redirectView = new RedirectView("/",true);
+        Date date = new Date();
+        model.addAttribute("dateTime",date);
         return "homepage";
     }
 
@@ -30,5 +32,10 @@ public class EntranceController {
         RedirectView redirectView = new RedirectView("home.html");
         redirectView.setStatusCode(HttpStatus.MOVED_PERMANENTLY);
         return redirectView;
+    }
+
+    @RequestMapping("register/{a}")
+    public void register(String a) {
+        System.out.println(a);
     }
 }

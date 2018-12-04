@@ -24,7 +24,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public int addUser(User user) {
         String password = user.getUserPassword();
-        user.setUserPassword(Md5Util.getHash(password));
+        user.setUserPassword(Md5Util.getHash(password,"salt"));
         return 1;
     }
 

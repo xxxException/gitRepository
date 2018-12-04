@@ -86,7 +86,7 @@ public class SpringbootdemoApplication {
     @Bean
     public EhCacheManager ehCacheManager() {
         EhCacheManager ehCacheManager = new EhCacheManager();
-        ehCacheManager.setCacheManagerConfigFile("D:\\文件\\实践项目\\springbootdemo\\src\\main\\resources\\shiro\\shiro-ehcache.xml");
+        ehCacheManager.setCacheManagerConfigFile("D:\\MyDocument\\project\\springbootdemo\\src\\main\\resources\\shiro\\shiro-ehcache.xml");
         return ehCacheManager;
     }
 
@@ -114,10 +114,11 @@ public class SpringbootdemoApplication {
         // 设置拦截器
 
         Map<String,String> filterChainDefinitionMap = new HashMap<>();
-        filterChainDefinitionMap.put("/validate","anon");
-        filterChainDefinitionMap.put("/login","anon");
+        filterChainDefinitionMap.put("/user/validate","anon");
+        filterChainDefinitionMap.put("/user/register","anon");
+        filterChainDefinitionMap.put("/passport/**","anon");
         filterChainDefinitionMap.put("/homepage","authc");
-        filterChainDefinitionMap.put("/user/**","roles[admin],roles[teacher],roles[student]");
+        filterChainDefinitionMap.put("/user/**","authc");
         filterChainDefinitionMap.put("/student/**","roles[admin],roles[teacher],roles[student]");
         filterChainDefinitionMap.put("/teacher/**","roles[admin],roles[teacher]");
         filterChainDefinitionMap.put("/*/edit","roles[admin]");
