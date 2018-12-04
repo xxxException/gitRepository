@@ -1,6 +1,6 @@
 package com.pointer.springbootdemo.mybatis.domin;
 
-public class Course extends CourseKey {
+public class Course {
     private String courseName;
 
     public String getCourseName() {

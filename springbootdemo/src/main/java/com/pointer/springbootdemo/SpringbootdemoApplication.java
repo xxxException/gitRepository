@@ -107,21 +107,16 @@ public class SpringbootdemoApplication {
         //设置登录，登陆成功，无权限的跳转url
         //没有登录的用户请求需要登录的页面时自动跳转到登录页面。
         //主要原因是successUrl配置只是做为一种附加配置，只有session中没有用户请求地址时才会使用successUrl；
-        shiroFilterFactoryBean.setLoginUrl("/login");
+        shiroFilterFactoryBean.setLoginUrl("/passport/login");
         shiroFilterFactoryBean.setSuccessUrl("/homepage");
-        shiroFilterFactoryBean.setUnauthorizedUrl("/login");
+        shiroFilterFactoryBean.setUnauthorizedUrl("/passport/login");
 
         // 设置拦截器
 
         Map<String,String> filterChainDefinitionMap = new HashMap<>();
-        filterChainDefinitionMap.put("/user/validate","anon");
-        filterChainDefinitionMap.put("/user/register","anon");
         filterChainDefinitionMap.put("/passport/**","anon");
         filterChainDefinitionMap.put("/homepage","authc");
         filterChainDefinitionMap.put("/user/**","authc");
-        filterChainDefinitionMap.put("/student/**","roles[admin],roles[teacher],roles[student]");
-        filterChainDefinitionMap.put("/teacher/**","roles[admin],roles[teacher]");
-        filterChainDefinitionMap.put("/*/edit","roles[admin]");
         //这一行必须放在最后，不然会导致所有 url 都被拦截
         filterChainDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

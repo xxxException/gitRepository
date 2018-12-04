@@ -3,18 +3,23 @@
 <mapper namespace="com.pointer.springbootdemo.mybatis.mapper.UserMapper">
 
 
-    <select id="selectByUsernameAndPassword" resultType="com.pointer.springbootdemo.mybatis.domin.User">
-        SELECT userId,userName,userPassword FROM user WHERE userName=#{userName} AND userPassword=#{password};
-    </select>
-
     <select id="selectByUsername" resultType="com.pointer.springbootdemo.mybatis.domin.User">
-        SELECT userId,userName,userPassword FROM user WHERE userName=#{userName};
+        SELECT id,userName,password,salt FROM user WHERE userName=#{userName};
     </select>
 
-    <select id="list" resultType="com.pointer.springbootdemo.mybatis.domin.User">
-        SELECT  FROM user WHERE userName=#{userName};
+    <select id="countUserByUserName" resultType="integer">
+        SELECT COUNT(userName) FROM user WHERE userName=#{userName};
     </select>
+
+    <select id="getSaltByUserName" resultType="String">
+        SELECT salt FROM user WHERE userName=#{userName};
+    </select>
+
+    <insert id="addUser" >
+        INSERT INTO user (userName,password,salt) VALUES (#{userName},#{password},#{salt});
+    </insert>
+
+
+
 </mapper>
-
-
 

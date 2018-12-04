@@ -10,4 +10,8 @@ public interface IUserService {
 
     public int addUser(User user);
 
+    public boolean isHaveUserByUserName(String userName);
+
+    public String getSaltByUserName(String userName);
+
 }

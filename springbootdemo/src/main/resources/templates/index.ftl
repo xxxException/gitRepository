@@ -4,7 +4,7 @@
 </head>
 <body>
 你好，<@shiro.principal property="userName"/>
-<form action="/logout">
+<form action="/passport/logout">
     <input type="submit" value="注销"/>
 </form>
 </body>

@@ -4,19 +4,16 @@ import java.io.Serializable;
 
 public class User implements Serializable{
 
-    private Integer userId;
+    private Integer id;
 
     private String userName;
 
-    private String userPassword;
+    private String password;
 
+    private String salt;
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public Integer getId() {
+        return id;
     }
 
     public String getUserName() {
@@ -27,20 +24,29 @@ public class User implements Serializable{
         this.userName = userName;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "userId=" + userId +
+                "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", userPassword='" + userPassword + '\'' +
+                ", password='" + password + '\'' +
+                ", salt='" + salt + '\'' +
                 '}';
     }
 }

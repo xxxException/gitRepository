@@ -57,8 +57,8 @@ public class MyRealm extends AuthorizingRealm {
         //设置role和permission
         List<String> roles = new ArrayList<>();
         List<String> permissions = new ArrayList<>();
-        roles = roleService.getRoleSnByUserId(user.getUserId());
-        permissions = permissionService.getResourceByUserId(user.getUserId());
+        roles = roleService.getRoleSnByUserId(user.getId());
+        permissions = permissionService.getResourceByUserId(user.getId());
         info.addRoles(roles);
         info.addStringPermissions(permissions);
 
@@ -77,9 +77,9 @@ public class MyRealm extends AuthorizingRealm {
             throw new UnknownAccountException();
         }
         //存进数据库的密码不能是明文，需要加密，这里我们用md5进行加密，散列次数为2，salt为"salt"
-        String password = user.getUserPassword();
+        String password = user.getPassword();
         //直接将user作为principal传入info中去，这样在授权操作中，就可以直接取出使用了
-        AuthenticationInfo info = new SimpleAuthenticationInfo(user,password, ByteSource.Util.bytes("salt"),getName());
+        AuthenticationInfo info = new SimpleAuthenticationInfo(user,password, ByteSource.Util.bytes(user.getSalt()),getName());
 //        AuthenticationInfo info = new SimpleAuthenticationInfo(userName,password,getName());
         return info;
     }

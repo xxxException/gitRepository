@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -23,9 +24,28 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public int addUser(User user) {
-        String password = user.getUserPassword();
-        user.setUserPassword(Md5Util.getHash(password,"salt"));
+        //生成salt
+        String salt = UUID.randomUUID().toString().substring(0,4);
+        String password = user.getPassword();
+        user.setPassword(Md5Util.getHash(password, salt));
+        user.setSalt(salt);
+        userMapper.addUser(user);
         return 1;
+    }
+
+    @Override
+    public boolean isHaveUserByUserName(String userName) {
+        Integer re = userMapper.countUserByUserName(userName);
+        System.out.println(re);
+        if (re==0) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String getSaltByUserName(String userName) {
+        return userMapper.getSaltByUserName(userName);
     }
 
 

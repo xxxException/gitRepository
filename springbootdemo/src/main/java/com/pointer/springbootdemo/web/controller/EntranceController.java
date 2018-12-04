@@ -11,10 +11,7 @@ import java.util.Date;
 @Controller
 public class EntranceController {
 
-    @RequestMapping("login")
-    public String login(Model model) {
-        return"login";
-    }
+
 
     @RequestMapping("homepage")
     public String homepage(Model model) {

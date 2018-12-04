@@ -1,6 +1,6 @@
 package com.pointer.springbootdemo.mybatis.domin;
 
-public class Teacher extends TeacherKey {
+public class Teacher {
     private String teacherName;
 
     private String teacherCourse;
