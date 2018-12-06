@@ -109,7 +109,6 @@ public class PassportController {
             model.addAttribute("errorMsg","未知错误信息，请联络管理员");
             return "forward:/passport/login";
         }
-        System.out.println("Session:     "+request.getSession().getClass().getName());
         return "redirect:/homepage";
     }
 

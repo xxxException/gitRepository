@@ -18,12 +18,11 @@
     <input type="submit" value="index">
 </form>
 
-    <table>
-        <tr>
-            <td></td>
-        </tr>
-    </table>
-
+<form action="/question/add">
+    title<input type="text" name="title">
+    content<input type="text" name="content">
+    <input type="submit" value="提问">
+</form>
 <@shiro.notAuthenticated></@shiro.notAuthenticated>
 </body>
 </html>
