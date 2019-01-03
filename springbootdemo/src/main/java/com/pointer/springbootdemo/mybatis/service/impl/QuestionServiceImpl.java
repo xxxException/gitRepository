@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
 import java.io.*;
+import java.util.List;
 
 @Service
 public class QuestionServiceImpl implements IQuestionService {
@@ -34,13 +35,26 @@ public class QuestionServiceImpl implements IQuestionService {
         return questionMapper.addQuestion(question);
     }
 
+    @Override
+    public List<Question> listQuestion() {
+        System.out.println(questionMapper.listQuestion());
+        return questionMapper.listQuestion();
+    }
+
+    public Question selectQuestion(Question question) {
+        return questionMapper.selectQuestionById(question);
+    }
+
+    @Override
+    public void increaseCommentCount(Integer id) {
+
+    }
+
     private String[] getStringsByFile(File file) {
         String re = new String();
         //敏感词过滤
         SensitiveTree tree = new SensitiveTree();
-        FileReader reader = null;
-        try {
-            reader = new FileReader(file);
+        try(FileReader reader = new FileReader(file)) {
             BufferedReader bufferedReader = new BufferedReader(reader);
             re = bufferedReader.readLine();
         } catch (FileNotFoundException e) {
@@ -53,4 +67,6 @@ public class QuestionServiceImpl implements IQuestionService {
         String[] sensitiveWords = re.split(",");
         return sensitiveWords;
     }
+
+
 }

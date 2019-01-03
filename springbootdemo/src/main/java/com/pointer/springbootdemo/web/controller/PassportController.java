@@ -96,17 +96,16 @@ public class PassportController {
         try {
             subject.login(token);
         } catch (UnknownAccountException ex) {
-            ex.printStackTrace();
             model.addAttribute("errorMsg","账户不存在");
-            System.out.println("账户不存在");
+            System.err.println("账户不存在");
             return "forward:/passport/login";
         } catch (IncorrectCredentialsException ex) {
-            ex.printStackTrace();
             model.addAttribute("errorMsg","用户名或密码错误");
+            System.err.println("用户名或密码错误");
             return "forward:/passport/login";
         } catch (Exception ex) {
-            ex.printStackTrace();
             model.addAttribute("errorMsg","未知错误信息，请联络管理员");
+            System.err.println("未知错误信息，请联络管理员");
             return "forward:/passport/login";
         }
         return "redirect:/homepage";

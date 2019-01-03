@@ -77,7 +77,7 @@
 <div class="login">
     <h1>登录</h1>
     <form method="post" action="/passport/login/validate">
-        <input type="text" name="userName" placeholder="用户名" required="required" />
+        <input type="text" name="userName" placeholder="用户名" required="required" /><#if errorMsg??>${errorMsg}</#if>
         <input type="password" name="password" placeholder="密码" required="required" />
         <button type="submit" class="btn btn-primary btn-block btn-large">登录</button>
     </form>

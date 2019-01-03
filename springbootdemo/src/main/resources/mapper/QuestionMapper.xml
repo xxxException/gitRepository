@@ -2,10 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pointer.springbootdemo.mybatis.mapper.QuestionMapper">
 
-<insert id="addQuestion" >
-    INSERT INTO Question (id, title, content, userId, createdDate, commentCount)
-    VALUES (#{id},#{title},#{content},#{userId},#{createDate},#{commentCount});
-</insert>
+    <insert id="addQuestion">
+        INSERT INTO question (id, title, content, userId, createdDate, commentCount)
+        VALUES (#{id}, #{title}, #{content}, #{userId}, #{createDate}, #{commentCount});
+    </insert>
+
+    <select id="listQuestion" resultType="com.pointer.springbootdemo.mybatis.domin.Question">
+        SELECT id, title, content, userId, createdDate, commentCount FROM question;
+    </select>
+
+    <select id="selectQuestionById" resultType="com.pointer.springbootdemo.mybatis.domin.Question">
+        SELECT id, title, content, userId, createdDate, commentCount FROM question
+        <include refid="base_where"/>
+    </select>
+
+    <update id="increaseCommentCount">
+        UPDATE question SET commentCount = commentCount + '1' WHERE id = #{id};
+    </update>
+
+    <sql id="base_where" >
+        <where>
+            <if test="id!=null">AND id = #{id}</if>
+            <if test="userId!=null">AND userId = #{userId}</if>
+            <if test="title!=null">
+                <bind name="titleLIKE" value="'%',title,'%'"/>
+                AND title LIKE #{titleLIKE}
+            </if>
+            <if test="content!=null">
+                <bind name="contentLIKE" value="'%',content,'%'"/>
+                AND content LIKE #{contentLIKE}
+            </if>
+        </where>
+    </sql>
 
 </mapper>
 

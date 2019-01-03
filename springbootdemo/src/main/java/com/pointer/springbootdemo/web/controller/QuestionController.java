@@ -8,6 +8,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -36,5 +37,13 @@ public class QuestionController {
             return WebUtil.getJSONString(0);
         }
         return WebUtil.getJSONString(1,"失败");
+    }
+
+    @RequestMapping("list")
+    public String list(Question question, Model model) {
+        Question reQuestion = questionService.selectQuestion(question);
+        model.addAttribute("question", reQuestion);
+        System.out.println(reQuestion);
+        return "question";
     }
 }

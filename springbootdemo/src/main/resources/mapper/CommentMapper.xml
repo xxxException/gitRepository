@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pointer.springbootdemo.mybatis.mapper.CommentMapper">
+
+    <insert id="addComment">
+        INSERT INTO comment (id,content,createdDate,entityId,entityType,userId,state) VALUES
+        (#{id},#{content},#{createDate},#{entityId},#{entityType},#{userId},1);
+    </insert>
+
+</mapper>
